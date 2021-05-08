@@ -1,0 +1,11 @@
+<%- include('./partials/head')  %> 
+<body>
+    <%- include('./partials/navbar') %>
+    <h1><%= err.message %></h1>
+    <% if(process.env.NODE_ENV !== 'production') { %> 
+        <p><%= err.stack %></p>
+    <% } %> 
+
+    <%- include('./partials/footer') %> 
+</body>
+</html>

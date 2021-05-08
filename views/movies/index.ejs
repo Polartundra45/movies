@@ -1,0 +1,16 @@
+<%- include('../partials/head')  %> 
+<body>
+    <%- include('../partials/navbar') %>
+
+   <h1 class="title">Movies</h1> 
+
+    <div class="con">
+        <% for(let movie of movies) { %>
+            <p><a href="/movies/<%= movie._id %>"><img src="<%= movie.image %>" class="showImg"></a></p>
+            <p><a href="/movies/<%= movie._id %>" class="movieList"><%= movie.title %></a></p>
+            <br> 
+        <% } %> 
+    </div>
+
+<%- include('../partials/footer') %> 
+</body>

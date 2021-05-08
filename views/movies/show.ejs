@@ -1,0 +1,80 @@
+<%- include('../partials/head')  %> 
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="card mb-3">
+        <div class="card-body">
+           
+            <p><img src="<%= movies.image %>" class="movieImg"></p>
+            <h5 class="card-title"><%= movies.title %></h5>
+            <hr>
+            <p class="card-title">Released: <%= movies.released %></p>
+            <p class="card-text">Rating: <%= movies.rating %>/10</p>
+            <p>Description: <%= movies.description %></p> 
+           
+        </div>
+    </div>
+
+    <h2 class="reviewTitle">Leave A Review</h2>
+
+    <% if(signedInUser) { %> 
+        <form action="/movies/<%= movies._id %>/reviews" method="POST" class="reviewForm">
+            <fieldset class="starability-basic">
+                <input type="radio" id="no-rate" class="input-no-rate" name="rev[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="rev[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="rev[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="rev[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="rev[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="rev[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+            
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Review</label>
+                <textarea name="rev[body]" id="exampleFormControlInput1"  class="form-control" placeholder="Review" cols="30" row="3" required></textarea>
+            </div>
+
+            <button class="reviewButton">Post</button>
+
+        </form>
+
+    <% } else { %> 
+        <p class="logged"><a href="/login">Sign In</a> or <a href="/register">Register</a> to leave a review</p>
+    <% } %> 
+ 
+    <h3 class="reviews">Reviews</h3>
+
+        <% if(movies.reviews.length) { %> 
+            <% if(movies.reviews.length > 1) { %> 
+                <p class="revNum"><em><%= movies.reviews.length %> reviews</em></p>
+            <% } else { %> 
+                <p class="revNum"><em><%= movies.reviews.length %> review</em></p>
+            <% } %> 
+        <% } %> 
+
+        <hr class="hr">
+   
+        <% for(let reviews of movies.reviews) { %>
+            <div class="reviewCon">
+            <p class="starability-result" data-rating="<%= reviews.rating %>">
+              Rated: 3 stars
+            </p>
+            <p><em>Posted By: <%= reviews.author.username %></em></p> 
+            <p>"<%= reviews.body %>"</p>
+       
+            <% if(signedInUser && reviews.author.equals(signedInUser._id)) { %> 
+                <form action="/movies/<%= movies._id %>/comments/<%= reviews._id %>?_method=DELETE" method="POST">
+                    <button class="delete">Delete Post</button>
+                </form>
+            <% } %> 
+            </div>
+        <% } %>
+  
+      
+  
+<%- include('../partials/footer') %> 
+</body>
