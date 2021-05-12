@@ -203,7 +203,6 @@
  
 .movieHomeButton {
     width: 5%;
-    text-decoration: none;
     display: block;
     text-align: center;
     margin: 0 auto;
@@ -212,10 +211,8 @@
     border-radius: 5px;
     margin-bottom: 5em;
     color: black;
-    background-color: mediumseagreen;
 }
 
 .movieHomeButton:hover {
-    background-color: green;
-    color: white;
+    color: grey;
 }
